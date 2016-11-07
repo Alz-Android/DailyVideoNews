@@ -1,6 +1,7 @@
 package com.alz.dailyvideonews;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView videoResults;
     private Handler handler;
     private List<VideoItem> searchResults;
+    private String mKeywords="business news";
+    private String mOrder="date";
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,38 +62,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.btnBusiness:
-                getNews("business news");
+                mKeywords = "business news";
+//                findViewById(R.id.btnBusiness).setBackgroundColor(Color.RED);
                 break;
 
             case R.id.btnPoltics:
-                getNews("politics news");
+                mKeywords = "politics news";
                 break;
 
             case R.id.btnTech:
-                getNews("technology news");
+                mKeywords = "technology news";
                 break;
 
             case R.id.btnRecency:
-                // do your code
+                mOrder = "date";
                 break;
 
             case R.id.btnRating:
-                // do your code
+                mOrder = "rating";
                 break;
 
             case R.id.btnViews:
-                // do your code
+                mOrder = "viewCount";
                 break;
             default:
                 break;
         }
+        getNews(mKeywords, mOrder);
     }
 
-    private void getNews(final String keywords){
+    private void getNews(final String keywords, final String order){
         new Thread(){
             public void run(){
                 YouTubeNews youtube = new YouTubeNews(MainActivity.this);
-                searchResults = youtube.search(keywords);
+                searchResults = youtube.search(keywords, order);
                 handler.post(new Runnable(){
                     public void run(){
                         updateVideos();
