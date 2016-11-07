@@ -60,33 +60,28 @@ public class YouTubeNews {
         try{
             SearchListResponse response = mQuery.execute();
             List<SearchResult> results = response.getItems();
-
+            List<VideoItem> items = new ArrayList<VideoItem>();
             Log.i(LOG_TAG,results.toString());
 
-            List<VideoItem> items = new ArrayList<VideoItem>();
+            // Clearing database since we only keep the last loaded data
+            mContext.getContentResolver().delete(VideosTable.CONTENT_URI, null, null);
+
             for(SearchResult result:results){
                 VideoItem item = new VideoItem();
+                item.setId(result.getId().getVideoId());
                 item.setTitle(result.getSnippet().getTitle());
                 item.setDescription(result.getSnippet().getDescription());
                 item.setThumbnailURL(result.getSnippet().getThumbnails().getDefault().getUrl());
-                item.setId(result.getId().getVideoId());
                 items.add(item);
+
+                VideoDBTable videoRow = new VideoDBTable(
+                        item.getId(),
+                        item.getTitle(),
+                        item.getDescription(),
+                        item.getThumbnailURL()
+                );
+                mContext.getContentResolver().insert(VideosTable.CONTENT_URI, VideosTable.getContentValues(videoRow, false));
             }
-            // content provider setup
-            String[] args = new String[]{"false"};
-            mContext.getContentResolver().delete(VideosTable.CONTENT_URI, "favorite=?", args);
-            VideoDBTable videoRow = new VideoDBTable(
-                    // Data to nbe inserted
-
-//                "false",
-//                movie.id.toString(),
-//                movie.posterPath,
-//                movie.releaseDate.toString(),
-//                isPopular
-            );
-
-
-
             return items;
         }catch(IOException e){
             Log.d(LOG_TAG, "Search failed: "+e);
@@ -94,4 +89,3 @@ public class YouTubeNews {
         }
     }
 }
-

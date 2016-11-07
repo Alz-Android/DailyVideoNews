@@ -1,14 +1,23 @@
 package com.alz.dailyvideonews;
 
+
+
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.database.Cursor;
+
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
+
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -19,7 +28,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import static java.security.AccessController.getContext;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
 
     private ListView videoResults;
     private Handler handler;
@@ -45,6 +56,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addClickListener();
     }
 
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.i("MainActivity", " onCreateLoader");
+
+        return new CursorLoader(
+                getBaseContext(),
+                VideosTable.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+    }
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        //
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager mngr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = mngr.getActiveNetworkInfo();
+        return !(info == null || (info.getState() != NetworkInfo.State.CONNECTED));
+    }
+
+
     private void addClickListener(){
         videoResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.btnBusiness:
                 mKeywords = "business news";
 //                findViewById(R.id.btnBusiness).setBackgroundColor(Color.RED);
