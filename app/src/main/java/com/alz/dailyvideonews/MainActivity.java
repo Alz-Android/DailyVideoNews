@@ -152,14 +152,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }.start();
     }
-
-    private void updateVideos(){
-
-        mVideoAdapter = new VideoCursorAdapter(this, null , 0);
-        Log.i(LOG_TAG, Integer.toString(mVideoAdapter.getCount()));
+}
 
 
-        videoResults.setAdapter(mVideoAdapter);
+//    private void updateVideos(){
+//
+//        mVideoAdapter = new VideoCursorAdapter(this, null , 0);
+//        Log.i(LOG_TAG, Integer.toString(mVideoAdapter.getCount()));
+//
+//
+//        videoResults.setAdapter(mVideoAdapter);
 
 //        ArrayAdapter<VideoItem> adapter = new ArrayAdapter<VideoItem>(getApplicationContext(), R.layout.video_item, searchResults){
 //            @Override
@@ -177,5 +179,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
 //        };
 //        videoResults.setAdapter(adapter);
-    }
-}
+//    }
+
