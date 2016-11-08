@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 public class YouTubeNews {
-    private final String LOG_TAG = MainActivity.class.getSimpleName();
+    private final String LOG_TAG = YouTubeNews.class.getSimpleName();
     private com.google.api.services.youtube.YouTube mYoutube;
     private com.google.api.services.youtube.YouTube.Search.List mQuery;
     private Context mContext;
@@ -81,6 +81,7 @@ public class YouTubeNews {
                         item.getThumbnailURL()
                 );
                 mContext.getContentResolver().insert(VideosTable.CONTENT_URI, VideosTable.getContentValues(videoRow, false));
+     //           mContext.getContentResolver().query(VideosTable.CONTENT_URI, )
             }
             return items;
         }catch(IOException e){

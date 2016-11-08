@@ -1,7 +1,5 @@
 package com.alz.dailyvideonews;
 
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,11 +22,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.stetho.Stetho;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -37,10 +34,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<VideoItem> searchResults;
     private String mKeywords="business news";
     private String mOrder="date";
-    
+
+    private static VideoCursorAdapter mVideoAdapter;
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Stetho.initializeWithDefaults(this);
         setContentView(R.layout.activity_main);
 
         // Use One onClick function to handle all 6 buttons
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i("MainActivity", " onCreateLoader");
 
         return new CursorLoader(
-                getBaseContext(),
+                this,
                 VideosTable.CONTENT_URI,
                 null,
                 null,
@@ -146,21 +147,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateVideos(){
-        ArrayAdapter<VideoItem> adapter = new ArrayAdapter<VideoItem>(getApplicationContext(), R.layout.video_item, searchResults){
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                if(convertView == null){
-                    convertView = getLayoutInflater().inflate(R.layout.video_item, parent, false);
-                }
-                ImageView thumbnail = (ImageView)convertView.findViewById(R.id.video_thumbnail);
-                TextView title = (TextView)convertView.findViewById(R.id.video_title);
 
-                VideoItem searchResult = searchResults.get(position);
-                Picasso.with(getApplicationContext()).load(searchResult.getThumbnailURL()).into(thumbnail);
-                title.setText(searchResult.getTitle());
-                return convertView;
-            }
-        };
-        videoResults.setAdapter(adapter);
+        mVideoAdapter = new VideoCursorAdapter(this, null , 0);
+        Log.i(LOG_TAG, Integer.toString(mVideoAdapter.getCount()));
+
+        videoResults.setAdapter(mVideoAdapter);
+
+//        ArrayAdapter<VideoItem> adapter = new ArrayAdapter<VideoItem>(getApplicationContext(), R.layout.video_item, searchResults){
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                if(convertView == null){
+//                    convertView = getLayoutInflater().inflate(R.layout.video_item, parent, false);
+//                }
+//                ImageView thumbnail = (ImageView)convertView.findViewById(R.id.video_thumbnail);
+//                TextView title = (TextView)convertView.findViewById(R.id.video_title);
+//
+//                VideoItem searchResult = searchResults.get(position);
+//                Picasso.with(getApplicationContext()).load(searchResult.getThumbnailURL()).into(thumbnail);
+//                title.setText(searchResult.getTitle());
+//                return convertView;
+//            }
+//        };
+//        videoResults.setAdapter(adapter);
     }
 }
