@@ -18,7 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebViewActivity"></activity>
+        <activity android:name=".WebViewActivity"
+            android:parentActivityName="com.alz.dailyvideonews.MainActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alz.dailyvideonews.MainActivity" />
+        </activity>
         <provider
             android:authorities="just.some.test_provider.authority"
             android:name=".VideoProvider" >
