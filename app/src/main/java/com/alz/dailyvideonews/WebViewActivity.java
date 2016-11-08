@@ -2,13 +2,19 @@ package com.alz.dailyvideonews;
 
 import android.graphics.Bitmap;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+
 
 public class WebViewActivity extends AppCompatActivity {
 
@@ -18,8 +24,14 @@ public class WebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web_view);
         WebView myWebView;
 
-
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar2);
+        if (myToolbar != null) {
+            setSupportActionBar(myToolbar);
+            ActionBar mActionBar = getSupportActionBar();
+            if (mActionBar != null){
+                mActionBar.setDisplayHomeAsUpEnabled(true);
+            }
+        }
 
 
         myWebView = (WebView) findViewById(R.id.webview);
@@ -29,16 +41,16 @@ public class WebViewActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            // Respond to the action bar's Up/Home button
+//            case android.R.id.home:
+//                NavUtils.navigateUpFromSameTask(this);
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
 // The web client was needed to place the video within the App isntead of opening YouTube
