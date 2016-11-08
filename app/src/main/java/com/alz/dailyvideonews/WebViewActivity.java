@@ -19,7 +19,7 @@ public class WebViewActivity extends AppCompatActivity {
         WebView myWebView;
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         myWebView = (WebView) findViewById(R.id.webview);
