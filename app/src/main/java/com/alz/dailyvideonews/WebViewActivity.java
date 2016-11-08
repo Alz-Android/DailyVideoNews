@@ -37,14 +37,13 @@ public class WebViewActivity extends AppCompatActivity {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
-
         }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) ) {
             this.finish();
             myWebView.goBack();
             return true;

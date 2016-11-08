@@ -101,10 +101,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void addClickListener(){
         videoResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> av, View v, int pos,
+            public void onItemClick(AdapterView<?> av, View v, int position,
                                     long id) {
                 Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
-                intent.putExtra("VIDEO_ID", searchResults.get(pos).getId());
+                Cursor cursor = (Cursor) mVideoAdapter.getItem(position);
+                intent.putExtra("VIDEO_ID", cursor.getString(cursor.getColumnIndex("videoId")));
                 startActivity(intent);
             }
         });
@@ -148,11 +149,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void run(){
                 YouTubeNews youtube = new YouTubeNews(MainActivity.this);
                 searchResults = youtube.search(keywords, order);
-//                handler.post(new Runnable(){
-//                    public void run(){
-//                        updateVideos();
-//                    }
-//                });
             }
         }.start();
     }
