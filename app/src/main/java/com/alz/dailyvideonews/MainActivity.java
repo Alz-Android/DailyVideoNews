@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 
+import android.database.DatabaseUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static VideoCursorAdapter mVideoAdapter;
     private final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final int LOADER_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         videoResults = (ListView)findViewById(R.id.video_results);
         handler = new Handler();
         addClickListener();
+
+
+        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
+
+        mVideoAdapter = new VideoCursorAdapter(this, null , 0);
+        videoResults.setAdapter(mVideoAdapter);
     }
 
 
@@ -73,11 +81,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
+        cursor.moveToFirst();
+        mVideoAdapter = new VideoCursorAdapter(this, cursor , 0);
+        videoResults.setAdapter(mVideoAdapter);
+  //      DatabaseUtils.dumpCursor(cursor);
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        //
+        mVideoAdapter.changeCursor(null);
     }
 
     private boolean isOnline() {
@@ -137,11 +148,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void run(){
                 YouTubeNews youtube = new YouTubeNews(MainActivity.this);
                 searchResults = youtube.search(keywords, order);
-                handler.post(new Runnable(){
-                    public void run(){
-                        updateVideos();
-                    }
-                });
+//                handler.post(new Runnable(){
+//                    public void run(){
+//                        updateVideos();
+//                    }
+//                });
             }
         }.start();
     }
@@ -150,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mVideoAdapter = new VideoCursorAdapter(this, null , 0);
         Log.i(LOG_TAG, Integer.toString(mVideoAdapter.getCount()));
+
 
         videoResults.setAdapter(mVideoAdapter);
 
