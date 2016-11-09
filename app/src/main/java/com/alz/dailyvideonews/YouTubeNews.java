@@ -81,7 +81,6 @@ public class YouTubeNews {
                         item.getThumbnailURL()
                 );
                 mContext.getContentResolver().insert(VideosTable.CONTENT_URI, VideosTable.getContentValues(videoRow, false));
-     //           mContext.getContentResolver().query(VideosTable.CONTENT_URI, )
             }
             return items;
         }catch(IOException e){

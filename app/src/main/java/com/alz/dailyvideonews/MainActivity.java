@@ -16,23 +16,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.facebook.stetho.Stetho;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
 
     private ListView videoResults;
-    private Handler handler;
-    private List<VideoItem> searchResults;
+//    private Handler handler;
+//    private List<VideoItem> searchResults;
     private String mKeywords="business news";
     private String mOrder="date";
 
@@ -55,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnViews).setOnClickListener(this);
 
         videoResults = (ListView)findViewById(R.id.video_results);
-        handler = new Handler();
+//        handler = new Handler();
         addClickListener();
 
 
@@ -148,7 +144,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new Thread(){
             public void run(){
                 YouTubeNews youtube = new YouTubeNews(MainActivity.this);
-                searchResults = youtube.search(keywords, order);
+  //              searchResults =
+                youtube.search(keywords, order);
             }
         }.start();
     }
