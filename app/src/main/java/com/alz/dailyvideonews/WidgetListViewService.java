@@ -33,18 +33,15 @@ public class WidgetListViewService extends RemoteViewsService {
             }
 
             public RemoteViews getViewAt(int position) {
-                Log.i("ListViewWidgetService", "getViewAt");
+                Log.i("ListViewWidgetServiceGV", records.get(position));
 
                 RemoteViews rv = new RemoteViews(getPackageName(), R.layout.widget);
 
-//                rv.setTextViewText(R.id.stock_symbol, records.get(position).getSymbol());
-
+                rv.setTextViewText(R.id.item, records.get(position));
 
                 Intent fillInIntent = new Intent();
                 fillInIntent.setData(VideosTable.CONTENT_URI);
-
                 rv.setOnClickFillInIntent(R.id.widget_list_item, fillInIntent);
-
                 return rv;
             }
 
@@ -67,10 +64,12 @@ public class WidgetListViewService extends RemoteViewsService {
 
                 cursor.moveToFirst();
                 Log.i("ListViewWidgetService", String.valueOf(cursor.getCount()));
+
                 try {
                     cursor.moveToPosition(-1);
                     while (cursor.moveToNext()) {
-                        records.add(cursor.getString(0));
+                        records.add(cursor.getString(0).substring(0,8));
+                        Log.i("ListViewWidgetService", cursor.getString(0));
                     }
                 } finally {
                     cursor.close();
