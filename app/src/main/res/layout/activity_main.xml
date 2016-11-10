@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -20,112 +20,99 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/activity_main2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="515dp"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         tools:context="com.alz.dailyvideonews.MainActivity">
 
-        <Button
-            android:text="Business"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorPrimaryDark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="41dp"
-            android:layout_marginStart="41dp"
-            android:id="@+id/btnBusiness"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="58dp" />
 
-        <Button
-            android:text="By Rating"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorPrimaryDark"
-            android:layout_width="wrap_content"
+        <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/favorites_grid"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:id="@+id/btnRating"
-            android:layout_below="@+id/btnRecency"
-            android:layout_alignLeft="@+id/btnRecency"
-            android:layout_alignStart="@+id/btnRecency"
-            android:layout_alignRight="@+id/btnRecency"
-            android:layout_alignEnd="@+id/btnRecency" />
+            android:background="#00ff00"
+            android:rowCount="3"
+            android:columnCount="2">
+            <Button
+                android:text="Business"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="0"
+                android:id="@+id/btnBusiness"/>
 
-        <Button
-            android:text="Tech"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorPrimaryDark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:id="@+id/btnTech"
-            android:layout_below="@+id/btnPoltics"
-            android:layout_alignLeft="@+id/btnPoltics"
-            android:layout_alignStart="@+id/btnPoltics" />
+            <Button
+                android:text="By Recency"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:id="@+id/btnRecency" />
 
-        <Button
-            android:text="By Views"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorPrimaryDark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:id="@+id/btnViews"
-            android:layout_below="@+id/btnRating"
-            android:layout_alignLeft="@+id/btnRating"
-            android:layout_alignStart="@+id/btnRating"
-            android:layout_alignRight="@+id/btnRating"
-            android:layout_alignEnd="@+id/btnRating" />
 
+            <Button
+                android:text="Politics"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="1"
+                android:id="@+id/btnPoltics" />
+            <Button
+                android:text="By Views"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_row="1"
+                android:id="@+id/btnViews" />
+
+            <Button
+                android:text="Tech"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="2"
+                android:id="@+id/btnTech" />
+
+            <Button
+                android:text="By Rating"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_row="2"
+                android:id="@+id/btnRating" />
+        </GridLayout>
+        <View style="@style/Line" />
         <ListView
             android:id="@+id/video_results"
             android:dividerHeight="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:layout_below="@+id/btnTech"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_marginTop="15dp" />
 
-        <View style="@style/Line"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/btnTech" />
-
-        <Button
-            android:text="By Recency"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorPrimaryDark"
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:id="@+id/btnRecency"
-            android:layout_alignBaseline="@+id/btnBusiness"
-            android:layout_alignBottom="@+id/btnBusiness"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="34dp"
-            android:layout_marginEnd="34dp" />
-
-        <Button
-            android:text="Politics"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorPrimaryDark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:id="@+id/btnPoltics"
-            android:layout_below="@+id/btnBusiness"
-            android:layout_alignRight="@+id/btnBusiness"
-            android:layout_alignEnd="@+id/btnBusiness" />
-    </RelativeLayout>
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/adMob_id">
+        </com.google.android.gms.ads.AdView>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

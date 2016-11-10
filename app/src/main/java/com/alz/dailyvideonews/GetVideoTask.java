@@ -1,8 +1,11 @@
 package com.alz.dailyvideonews;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -18,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static android.R.attr.bitmap;
+
 
 public class GetVideoTask extends AsyncTask<String, Void, Void> {
     public static final String API_KEY = "AIzaSyDyabUM--6OixvzaaxUk4iwnNVSSuCdjU0";
@@ -25,6 +30,11 @@ public class GetVideoTask extends AsyncTask<String, Void, Void> {
     private com.google.api.services.youtube.YouTube mYoutube;
     private com.google.api.services.youtube.YouTube.Search.List mQuery;
     private Context mContext;
+
+
+    private AppWidgetManager appWidgetManager;
+    private RemoteViews rv;
+    private ComponentName watchWidget;
 
     public GetVideoTask(Context context) {
 
@@ -77,15 +87,27 @@ public class GetVideoTask extends AsyncTask<String, Void, Void> {
                         item.getId(),
                         item.getTitle(),
                         item.getDescription(),
-                        item.getThumbnailURL()
+                        item.getThumbnailURL(),
+                        false
                 );
                 mContext.getContentResolver().insert(VideosTable.CONTENT_URI, VideosTable.getContentValues(videoRow, false));
             }
 
         } catch (IOException e) {
             Log.d(LOG_TAG, "Search failed: " + e);
-
         }
         return null;
+    }
+
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+
+        if (appWidgetManager != null) {
+            String finalString = "sync @";
+            rv.setTextViewText(R.id.list_view, finalString);
+            appWidgetManager.updateAppWidget(watchWidget, rv);
+        }
     }
 }

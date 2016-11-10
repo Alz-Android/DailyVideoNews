@@ -4,11 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 
-import android.database.DatabaseUtils;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Handler;
-
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -20,8 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.facebook.stetho.Stetho;
-
-import java.util.List;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
@@ -35,11 +31,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int LOADER_ID = 0;
 
+    // Obtain the shared Tracker instance.
+    AnalyticsApplication application = (AnalyticsApplication) getApplication();
+  //  mTracker = application.getDefaultTracker();
+    //TODO: check above Tracker
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Stetho.initializeWithDefaults(this);
         setContentView(R.layout.activity_main);
+
+        MobileAds.initialize(this, "ca-app-pub-5707519959799753~1251811626");
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+
 
         // Use One onClick function to handle all 6 buttons
         findViewById(R.id.btnBusiness).setOnClickListener(this);
@@ -53,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addClickListener();
 
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
-
         mVideoAdapter = new VideoCursorAdapter(this, null , 0);
         videoResults.setAdapter(mVideoAdapter);
     }
@@ -84,11 +95,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mVideoAdapter.changeCursor(null);
     }
 
-    private boolean isOnline() {
-        ConnectivityManager mngr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = mngr.getActiveNetworkInfo();
-        return !(info == null || (info.getState() != NetworkInfo.State.CONNECTED));
-    }
+//    private boolean isOnline() {
+//        ConnectivityManager mngr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo info = mngr.getActiveNetworkInfo();
+//        return !(info == null || (info.getState() != NetworkInfo.State.CONNECTED));
+//    }
 
 
     private void addClickListener(){
