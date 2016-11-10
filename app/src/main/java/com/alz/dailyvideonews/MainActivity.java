@@ -18,6 +18,7 @@ import com.facebook.stetho.Stetho;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.Tracker;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
@@ -33,11 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // Obtain the shared Tracker instance.
     AnalyticsApplication application = (AnalyticsApplication) getApplication();
-  //  mTracker = application.getDefaultTracker();
-    //TODO: check above Tracker
-
-
-
+//    Tracker mTracker  = application.getDefaultTracker();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +46,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-
-
 
         // Use One onClick function to handle all 6 buttons
         findViewById(R.id.btnBusiness).setOnClickListener(this);
@@ -94,13 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onLoaderReset(Loader<Cursor> loader) {
         mVideoAdapter.changeCursor(null);
     }
-
-//    private boolean isOnline() {
-//        ConnectivityManager mngr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo info = mngr.getActiveNetworkInfo();
-//        return !(info == null || (info.getState() != NetworkInfo.State.CONNECTED));
-//    }
-
 
     private void addClickListener(){
         videoResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -149,45 +136,3 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getVideo.execute(mKeywords, mOrder);
     }
 }
-
- //   private void getNews(final String keywords, final String order){
-
-
-
-
-   //     new Thread(){
-   //         public void run(){
-     //           YouTubeNews youtube = new YouTubeNews(MainActivity.this);
-      //          youtube.search(keywords, order);
-      //      }
-    //    }.start();
- //   }
-
-
-
-//    private void updateVideos(){
-//
-//        mVideoAdapter = new VideoCursorAdapter(this, null , 0);
-//        Log.i(LOG_TAG, Integer.toString(mVideoAdapter.getCount()));
-//
-//
-//        videoResults.setAdapter(mVideoAdapter);
-
-//        ArrayAdapter<VideoItem> adapter = new ArrayAdapter<VideoItem>(getApplicationContext(), R.layout.video_item, searchResults){
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                if(convertView == null){
-//                    convertView = getLayoutInflater().inflate(R.layout.video_item, parent, false);
-//                }
-//                ImageView thumbnail = (ImageView)convertView.findViewById(R.id.video_thumbnail);
-//                TextView title = (TextView)convertView.findViewById(R.id.video_title);
-//
-//                VideoItem searchResult = searchResults.get(position);
-//                Picasso.with(getApplicationContext()).load(searchResult.getThumbnailURL()).into(thumbnail);
-//                title.setText(searchResult.getTitle());
-//                return convertView;
-//            }
-//        };
-//        videoResults.setAdapter(adapter);
-//    }
-
