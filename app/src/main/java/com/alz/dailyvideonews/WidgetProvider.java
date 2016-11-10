@@ -3,11 +3,14 @@ package com.alz.dailyvideonews;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.RemoteViews;
+
+import static android.R.style.Widget;
 
 /**
  * Implementation of App Widget functionality.
@@ -33,25 +36,20 @@ public class WidgetProvider extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         for (int i = 0; i < appWidgetIds.length; ++i) {
 
-            Log.i("MyWidgetProvider", "onUpdate :");
             Intent intent = new Intent(context, WidgetListViewService.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-
-            // Instantiate the RemoteViews object for the app widget layout.
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_list_view);
-
             rv.setRemoteAdapter(appWidgetIds[i], R.id.list_view, intent);
 
-            // Trigger listview item click
-            Intent startActivityIntent = new Intent(context, MainActivity.class);
-            PendingIntent startActivityPendingIntent = PendingIntent.getActivity(context, 0, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            rv.setPendingIntentTemplate(R.id.list_view, startActivityPendingIntent);
+            Log.i("WidgetProvider", "onUpdate :");
+            Intent intentSync = new Intent(context, MainActivity.class);
+            intentSync.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE); //You need to specify the action for the intent. Right now that intent is doing nothing for there is no action to be broadcasted.
+            PendingIntent pendingSync = PendingIntent.getBroadcast(context,0, intentSync, PendingIntent.FLAG_UPDATE_CURRENT); //You need to specify a proper flag for the intent. Or else the intent will become deleted.
+            rv.setOnClickPendingIntent(R.id.btnUpdate,pendingSync);
 
-            rv.setEmptyView(R.id.list_view, R.id.empty_view);
-
-            // Do additional processing specific to this app widget...
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
+
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }

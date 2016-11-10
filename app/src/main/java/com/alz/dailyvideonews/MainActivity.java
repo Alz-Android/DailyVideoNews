@@ -27,8 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
 
     private ListView videoResults;
-//    private Handler handler;
-//    private List<VideoItem> searchResults;
+
     private String mKeywords="business news";
     private String mOrder="date";
 
@@ -51,9 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btnViews).setOnClickListener(this);
 
         videoResults = (ListView)findViewById(R.id.video_results);
-//        handler = new Handler();
         addClickListener();
-
 
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
 
@@ -137,13 +134,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
-        getNews(mKeywords, mOrder);
-    }
-
-    private void getNews(final String keywords, final String order){
-
         GetVideoTask getVideo = new GetVideoTask(MainActivity.this);
-        getVideo.execute(keywords, order);
+        getVideo.execute(mKeywords, mOrder);
+    }
+}
+
+ //   private void getNews(final String keywords, final String order){
+
+
 
 
    //     new Thread(){
@@ -152,8 +150,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       //          youtube.search(keywords, order);
       //      }
     //    }.start();
-    }
-}
+ //   }
+
 
 
 //    private void updateVideos(){

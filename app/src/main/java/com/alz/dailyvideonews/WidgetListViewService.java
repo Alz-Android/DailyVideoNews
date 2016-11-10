@@ -67,7 +67,7 @@ public class WidgetListViewService extends RemoteViewsService {
                 try {
                     cursor.moveToPosition(-1);
                     while (cursor.moveToNext()) {
-                        records.add(cursor.getString(0).substring(0,20));
+                        records.add(cursor.getString(0));
                         Log.i("ListViewWidgetService", cursor.getString(0));
                     }
                 } finally {
