@@ -1,10 +1,7 @@
 package com.alz.dailyvideonews;
 
-/**
- * Created by Al on 2016-10-31.
- */
-
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.api.client.http.HttpRequest;
@@ -21,52 +18,54 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class YouTubeNews {
-    private final String LOG_TAG = YouTubeNews.class.getSimpleName();
+
+public class GetVideoTask extends AsyncTask<String, Void, Void> {
+    public static final String API_KEY = "AIzaSyDyabUM--6OixvzaaxUk4iwnNVSSuCdjU0";
+    private final String LOG_TAG = GetVideoTask.class.getSimpleName();
     private com.google.api.services.youtube.YouTube mYoutube;
     private com.google.api.services.youtube.YouTube.Search.List mQuery;
     private Context mContext;
 
-    public static final String API_KEY = "AIzaSyDyabUM--6OixvzaaxUk4iwnNVSSuCdjU0";
+    public GetVideoTask(Context context) {
 
-    public YouTubeNews(Context context) {
         mContext = context;
         mYoutube = new com.google.api.services.youtube.YouTube.Builder(new NetHttpTransport(),
-                                    new JacksonFactory(),
-                                    new HttpRequestInitializer() {
-            @Override
-            public void initialize(HttpRequest hr) throws IOException {}
-        }).setApplicationName(context.getResources().getString(R.string.app_name)).build();
+                new JacksonFactory(),
+                new HttpRequestInitializer() {
+                    @Override
+                    public void initialize(HttpRequest hr) throws IOException {
+                    }
+                }).setApplicationName(context.getResources().getString(R.string.app_name)).build();
 
-        try{
+        try {
             mQuery = mYoutube.search().list("id,snippet");
             mQuery.setKey(API_KEY);
             mQuery.setType("video");
             mQuery.setFields("items(id/videoId,snippet/title,snippet/description,snippet/thumbnails/default/url, snippet/publishedAt)");
-        }catch(IOException e){
-            Log.d(LOG_TAG, "connection error: "+e);
+        } catch (IOException e) {
+            Log.d(LOG_TAG, "connection error: " + e);
         }
     }
 
-    public List<VideoItem> search(String keywords, String order){
-
-        Date yesterday = new Date(System.currentTimeMillis()-24*60*60*1000);
-        String  rfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(yesterday);
+    @Override
+    protected Void doInBackground(String... params) {
+        Date yesterday = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+        String rfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(yesterday);
         DateTime dt = DateTime.parseRfc3339(rfc3339);
         mQuery.setPublishedAfter(dt);
-        mQuery.setQ(keywords);
-        mQuery.setOrder(order);
+        mQuery.setQ(params[0]);
+        mQuery.setOrder(params[1]);
 
-        try{
+        try {
             SearchListResponse response = mQuery.execute();
             List<SearchResult> results = response.getItems();
             List<VideoItem> items = new ArrayList<VideoItem>();
-            Log.i(LOG_TAG,results.toString());
+            Log.i(LOG_TAG, results.toString());
 
             // Clearing database since we only keep the last loaded data
             mContext.getContentResolver().delete(VideosTable.CONTENT_URI, null, null);
 
-            for(SearchResult result:results){
+            for (SearchResult result : results) {
                 VideoItem item = new VideoItem();
                 item.setId(result.getId().getVideoId());
                 item.setTitle(result.getSnippet().getTitle());
@@ -82,10 +81,11 @@ public class YouTubeNews {
                 );
                 mContext.getContentResolver().insert(VideosTable.CONTENT_URI, VideosTable.getContentValues(videoRow, false));
             }
-            return items;
-        }catch(IOException e){
-            Log.d(LOG_TAG, "Search failed: "+e);
-            return null;
+
+        } catch (IOException e) {
+            Log.d(LOG_TAG, "Search failed: " + e);
+
         }
+        return null;
     }
 }

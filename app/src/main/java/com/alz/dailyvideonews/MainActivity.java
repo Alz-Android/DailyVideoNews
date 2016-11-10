@@ -141,13 +141,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getNews(final String keywords, final String order){
-        new Thread(){
-            public void run(){
-                YouTubeNews youtube = new YouTubeNews(MainActivity.this);
-  //              searchResults =
-                youtube.search(keywords, order);
-            }
-        }.start();
+
+        GetVideoTask getVideo = new GetVideoTask(MainActivity.this);
+        getVideo.execute(keywords, order);
+
+
+   //     new Thread(){
+   //         public void run(){
+     //           YouTubeNews youtube = new YouTubeNews(MainActivity.this);
+      //          youtube.search(keywords, order);
+      //      }
+    //    }.start();
     }
 }
 
