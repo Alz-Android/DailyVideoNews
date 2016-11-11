@@ -2,5 +2,13 @@
     <string name="app_name">Daily Video News</string>
     <string name="appwidget_text">News Headlines</string>
     <string name="add_widget">Add widget</string>
+
+    <string name="btn_Business">Business</string>
+    <string name="btn_Recency">By Recency</string>
+    <string name="btn_Politics">Politics</string>
+    <string name="btn_Views">By Views</string>
+    <string name="btn_Tech">Tech</string>
+    <string name="btn_Rating">By Rating</string>
+
     <string name="adMob_id">ca-app-pub-5707519959799753/2728544821</string>
 </resources>

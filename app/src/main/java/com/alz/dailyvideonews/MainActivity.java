@@ -18,6 +18,7 @@ import com.facebook.stetho.Stetho;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 
@@ -61,8 +62,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
         mVideoAdapter = new VideoCursorAdapter(this, null , 0);
         videoResults.setAdapter(mVideoAdapter);
-    }
 
+//        mTracker.send(new HitBuilders.EventBuilder()
+//                .setCategory("Action")
+//                .setAction("Share")
+//                .build());
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -82,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cursor.moveToFirst();
         mVideoAdapter = new VideoCursorAdapter(this, cursor , 0);
         videoResults.setAdapter(mVideoAdapter);
-  //      DatabaseUtils.dumpCursor(cursor);
+
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {

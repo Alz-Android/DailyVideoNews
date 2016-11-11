@@ -6,9 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_main"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+
     tools:context="com.alz.dailyvideonews.MainActivity">
 
 
@@ -20,11 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbar2"
-
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:rowCount="3"
             android:columnCount="3">
             <Button
-                android:text="Business"
+                android:text="@string/btn_Business"
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
                 android:id="@+id/btnBusiness"/>
 
             <Button
-                android:text="By Recency"
+                android:text="@string/btn_Recency"
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
 
 
             <Button
-                android:text="Politics"
+                android:text="@string/btn_Politics"
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 android:layout_marginTop="3dp"
                 android:id="@+id/btnPoltics" />
             <Button
-                android:text="By Views"
+                android:text="@string/btn_Views"
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                 android:id="@+id/btnViews" />
 
             <Button
-                android:text="Tech"
+                android:text="@string/btn_Business"
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                 android:id="@+id/btnTech" />
 
             <Button
-                android:text="By Rating"
+                android:text="@string/btn_Rating"
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
@@ -89,26 +89,27 @@
                 android:layout_marginTop="3dp"
                 android:id="@+id/btnRating" />
         </GridLayout>
-        <View style="@style/Line" />
-        <ListView
-            android:id="@+id/video_results"
-            android:dividerHeight="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/buttons_grid"
-            android:layout_above="@id/adView"
-            android:layout_marginTop="10dp" />
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             ads:adSize="BANNER"
             ads:adUnitId="@string/adMob_id">
         </com.google.android.gms.ads.AdView>
-
-
+        <ListView
+            android:id="@+id/video_results"
+            android:dividerHeight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:layout_below="@id/buttons_grid"
+            android:layout_above="@id/adView"
+            android:layout_marginTop="5dp" />
 </RelativeLayout>
 
 
