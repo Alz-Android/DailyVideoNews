@@ -10,5 +10,9 @@
     <string name="btn_Tech">Tech</string>
     <string name="btn_Rating">By Rating</string>
 
+    <string name="widget_title">Recently Viewed Headlines</string>
+
+
+
     <string name="adMob_id">ca-app-pub-5707519959799753/2728544821</string>
 </resources>

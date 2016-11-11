@@ -10,7 +10,7 @@
         android:id="@+id/item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:textSize="15sp"
-        android:textStyle="bold"/>
+        android:padding="6dp"
+        android:textSize="@dimen/widget_text"
+        />
 </LinearLayout>

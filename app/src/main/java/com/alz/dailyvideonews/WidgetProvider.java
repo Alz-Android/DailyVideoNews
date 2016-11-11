@@ -1,13 +1,16 @@
 package com.alz.dailyvideonews;
 
 import android.app.PendingIntent;
+
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.RemoteViews;
+
 
 /**
  * Implementation of App Widget functionality.
@@ -32,25 +35,19 @@ public class WidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
         for (int i = 0; i < appWidgetIds.length; ++i) {
-
-
             Intent intent = new Intent(context, WidgetListViewService.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_list_view);
             rv.setRemoteAdapter(appWidgetIds[i], R.id.list_view, intent);
 
+            Log.i("WidgetProvider", "onUpdate :");
 
-
-            GetVideoTask getVideo = new GetVideoTask(context);
-            getVideo.execute("michigan", "viewCount");
-            Log.i("WidgetProvider", "async exec :");
-
-//            Log.i("WidgetProvider", "onUpdate :");
-//            Intent intentSync = new Intent(context, MainActivity.class);
-//            intentSync.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE); //You need to specify the action for the intent. Right now that intent is doing nothing for there is no action to be broadcasted.
-//            PendingIntent pendingSync = PendingIntent.getBroadcast(context,0, intentSync, PendingIntent.FLAG_UPDATE_CURRENT); //You need to specify a proper flag for the intent. Or else the intent will become deleted.
-//            rv.setOnClickPendingIntent(R.id.btnUpdate,pendingSync);
+            Intent clickIntentTemplate = new Intent(context, WebViewActivity.class);
+            PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
+                    .addNextIntentWithParentStack(clickIntentTemplate)
+                    .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+            rv.setOnClickPendingIntent(R.id.list_view,clickPendingIntentTemplate);
 
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
         }

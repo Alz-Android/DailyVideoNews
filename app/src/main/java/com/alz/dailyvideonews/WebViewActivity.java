@@ -33,7 +33,6 @@ public class WebViewActivity extends AppCompatActivity {
             }
         }
 
-
         myWebView = (WebView) findViewById(R.id.webview);
         myWebView.setWebViewClient(new myWebClient());
         WebSettings webSettings = myWebView.getSettings();
@@ -41,7 +40,7 @@ public class WebViewActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
     }
 
-// The web client was needed to place the video within the App isntead of opening YouTube
+// The web client was needed to place the video within the App instead of opening YouTube
 // Also without this Client 2 back clicks were needed to return the App to the main page
     public class myWebClient extends WebViewClient
     {
@@ -57,14 +56,4 @@ public class WebViewActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event)
-//    {
-//        if ((keyCode == KeyEvent.KEYCODE_BACK) ) {
-//            this.finish();
-//            myWebView.goBack();
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
 }

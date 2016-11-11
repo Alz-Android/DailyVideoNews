@@ -3,31 +3,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:text="Update"
-        android:background="@color/colorPrimary"
+    <TextView
+        android:text="@string/widget_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnUpdate" />
+        android:padding="@dimen/widget_margin"
+        android:textSize="@dimen/widget_headline_text"
+        android:background="@color/colorPrimary"
+        android:textStyle="bold"
+        android:id="@+id/textView" />
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginLeft="@dimen/widget_margin"
+        android:layout_marginRight="@dimen/widget_margin"
         android:divider="@color/colorWhite"
         android:dividerHeight="1sp"
         android:background="@color/colorBlue"/>
-
-    <TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="4dp"
-        android:text="No Data"
-        />
 
 </LinearLayout>
