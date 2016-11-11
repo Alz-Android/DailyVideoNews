@@ -64,7 +64,7 @@
                 android:id="@+id/btnViews" />
 
             <Button
-                android:text="@string/btn_Business"
+                android:text="@string/btn_Tech"
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorPrimaryDark"
                 android:layout_width="@dimen/button_width"
