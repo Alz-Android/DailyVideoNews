@@ -11,6 +11,7 @@ import android.widget.RemoteViewsService;
 import java.util.ArrayList;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+import static android.provider.MediaStore.Video.Thumbnails.VIDEO_ID;
 
 /**
  * Created by Al on 2016-11-08.
@@ -39,6 +40,7 @@ public class WidgetListViewService extends RemoteViewsService {
                 rv.setTextViewText(R.id.item, records.get(position).getTitle());
                 Intent fillInIntent = new Intent();
                 fillInIntent.setData(VideosTable.CONTENT_URI);
+                fillInIntent.putExtra("VIDEO_ID",records.get(position).getId());
                 rv.setOnClickFillInIntent(R.id.widget_list_item, fillInIntent);
                 return rv;
             }
