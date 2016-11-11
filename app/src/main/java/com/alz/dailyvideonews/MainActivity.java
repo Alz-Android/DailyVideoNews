@@ -34,14 +34,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int LOADER_ID = 0;
 
     // Obtain the shared Tracker instance.
-    AnalyticsApplication application = (AnalyticsApplication) getApplication();
-//    Tracker mTracker  = application.getDefaultTracker();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Stetho.initializeWithDefaults(this);
         setContentView(R.layout.activity_main);
+
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        Tracker mTracker  = application.getDefaultTracker();
 
         MobileAds.initialize(this, "ca-app-pub-5707519959799753~1251811626");
         AdView mAdView = (AdView) findViewById(R.id.adView);
@@ -63,10 +66,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mVideoAdapter = new VideoCursorAdapter(this, null , 0);
         videoResults.setAdapter(mVideoAdapter);
 
-//        mTracker.send(new HitBuilders.EventBuilder()
-//                .setCategory("Action")
-//                .setAction("Share")
-//                .build());
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build());
     }
 
     @Override

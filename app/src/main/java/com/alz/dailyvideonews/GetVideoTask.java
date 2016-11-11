@@ -101,14 +101,14 @@ public class GetVideoTask extends AsyncTask<String, Void, Void> {
     }
 
 
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-
-        if (appWidgetManager != null) {
-            String finalString = "sync @";
-            rv.setTextViewText(R.id.list_view, finalString);
-            appWidgetManager.updateAppWidget(watchWidget, rv);
-        }
-    }
+//    @Override
+//    protected void onPostExecute(Void aVoid) {
+//        super.onPostExecute(aVoid);
+//
+//        if (appWidgetManager != null) {
+//            String finalString = "sync @";
+//            rv.setTextViewText(R.id.list_view, finalString);
+//            appWidgetManager.updateAppWidget(watchWidget, rv);
+//        }
+//    }
 }
