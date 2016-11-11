@@ -10,9 +10,15 @@
     <string name="btn_Tech">Tech</string>
     <string name="btn_Rating">By Rating</string>
 
+    <string name="key_Business">business news</string>
+    <string name="ord_Recency">date</string>
+    <string name="key_Politics">politics news</string>
+    <string name="ord_Views">viewCount</string>
+    <string name="key_Tech">technology news</string>
+    <string name="ord_Rating">rating</string>
+
+    <string name="no_data">No Data</string>
     <string name="widget_title">Recently Viewed Headlines</string>
-
-
 
     <string name="adMob_id">ca-app-pub-5707519959799753/2728544821</string>
 </resources>

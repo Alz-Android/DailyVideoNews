@@ -30,11 +30,6 @@ public class GetVideoTask extends AsyncTask<String, Void, Void> {
     private com.google.api.services.youtube.YouTube.Search.List mQuery;
     private Context mContext;
 
-
-    private AppWidgetManager appWidgetManager;
-    private RemoteViews rv;
-    private ComponentName watchWidget;
-
     public GetVideoTask(Context context) {
 
         mContext = context;
@@ -97,16 +92,4 @@ public class GetVideoTask extends AsyncTask<String, Void, Void> {
         }
         return null;
     }
-
-
-//    @Override
-//    protected void onPostExecute(Void aVoid) {
-//        super.onPostExecute(aVoid);
-//
-//        if (appWidgetManager != null) {
-//            String finalString = "sync @";
-//            rv.setTextViewText(R.id.list_view, finalString);
-//            appWidgetManager.updateAppWidget(watchWidget, rv);
-//        }
-//    }
 }

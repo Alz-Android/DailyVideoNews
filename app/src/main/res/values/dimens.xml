@@ -11,7 +11,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
 
     <dimen name="button_width">150dp</dimen>
-    <dimen name="widget_margin">3dp</dimen>
+    <dimen name="widget_margin">5dp</dimen>
     <dimen name="widget_text">18sp</dimen>
     <dimen name="widget_headline_text">23sp</dimen>
 </resources>

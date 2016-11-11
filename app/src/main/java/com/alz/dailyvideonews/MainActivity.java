@@ -21,7 +21,6 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
 
     private ListView videoResults;
@@ -72,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.i("MainActivity", " onCreateLoader");
-
         return new CursorLoader(
                 this,
                 VideosTable.CONTENT_URI,
@@ -111,27 +109,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnBusiness:
-                mKeywords = "business news";
+                mKeywords = getString(R.string.key_Business);
                 break;
 
             case R.id.btnPoltics:
-                mKeywords = "politics news";
+                mKeywords = getString(R.string.key_Politics);
                 break;
 
             case R.id.btnTech:
-                mKeywords = "technology news";
+                mKeywords = getString(R.string.key_Tech);
                 break;
 
             case R.id.btnRecency:
-                mOrder = "date";
+                mOrder = getString(R.string.ord_Recency);
                 break;
 
             case R.id.btnRating:
-                mOrder = "rating";
+                mOrder = getString(R.string.ord_Rating);
                 break;
 
             case R.id.btnViews:
-                mOrder = "viewCount";
+                mOrder = getString(R.string.ord_Views);
                 break;
             default:
                 break;

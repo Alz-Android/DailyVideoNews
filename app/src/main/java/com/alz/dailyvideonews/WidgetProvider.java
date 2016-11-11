@@ -41,13 +41,15 @@ public class WidgetProvider extends AppWidgetProvider {
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_list_view);
             rv.setRemoteAdapter(appWidgetIds[i], R.id.list_view, intent);
 
+            rv.setEmptyView(R.id.list_view, R.id.empty_view);
             Log.i("WidgetProvider", "onUpdate :");
 
-//            Intent clickIntentTemplate = new Intent(context, WebViewActivity.class);
-//            PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
-//                    .addNextIntentWithParentStack(clickIntentTemplate)
-//                    .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-//            rv.setOnClickPendingIntent(R.id.list_view,clickPendingIntentTemplate);
+            Intent clickIntentTemplate = new Intent(context, WebViewActivity.class);
+            clickIntentTemplate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
+            intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+            PendingIntent clickPendingIntentTemplate = PendingIntent.getBroadcast(context, 0, clickIntentTemplate,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            rv.setPendingIntentTemplate(R.id.list_view,clickPendingIntentTemplate);
 
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
         }
