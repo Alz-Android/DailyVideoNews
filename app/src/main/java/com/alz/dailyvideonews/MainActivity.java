@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int LOADER_ID = 0;
 
-    // Obtain the shared Tracker instance.
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btnBusiness:
                 mKeywords = "business news";
-//                findViewById(R.id.btnBusiness).setBackgroundColor(Color.RED);
                 break;
 
             case R.id.btnPoltics:

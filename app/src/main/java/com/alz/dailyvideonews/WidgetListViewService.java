@@ -25,19 +25,18 @@ public class WidgetListViewService extends RemoteViewsService {
         return new RemoteViewsFactory() {
 
             private Cursor cursor = null;
-            private ArrayList<String> records;
+            private ArrayList<VideoItem> records;
 
             public void onCreate() {
                 Log.i("ListViewWidgetService", "onCreate");
-                records = new ArrayList<String>();
+                records = new ArrayList<VideoItem>();
             }
 
             public RemoteViews getViewAt(int position) {
-                Log.i("ListViewWidgetServiceGV", records.get(position));
+                Log.i("ListViewWidgetServiceGV", records.get(position).getTitle());
 
                 RemoteViews rv = new RemoteViews(getPackageName(), R.layout.widget_list_item);
-                rv.setTextViewText(R.id.item, records.get(position));
-
+                rv.setTextViewText(R.id.item, records.get(position).getTitle());
                 Intent fillInIntent = new Intent();
                 fillInIntent.setData(VideosTable.CONTENT_URI);
                 rv.setOnClickFillInIntent(R.id.widget_list_item, fillInIntent);
@@ -55,7 +54,7 @@ public class WidgetListViewService extends RemoteViewsService {
 
                 cursor = getContentResolver().query(
                         VideosTable.CONTENT_URI,
-                        new String[]{VideosTable.FIELD_TITLE},
+                        new String[]{VideosTable.FIELD_TITLE, VideosTable.FIELD_VIDEOID},
                         null,
                         null,
                         null);
@@ -67,7 +66,7 @@ public class WidgetListViewService extends RemoteViewsService {
                 try {
                     cursor.moveToPosition(-1);
                     while (cursor.moveToNext()) {
-                        records.add(cursor.getString(0));
+                        records.add (new VideoItem(cursor.getString(0),cursor.getString(1)) );
                         Log.i("ListViewWidgetService", cursor.getString(0));
                     }
                 } finally {

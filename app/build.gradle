@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.google.gms.google-services'
 
+ext.extProgram = new Properties()
+extProgram.load(file("app.properties").newDataInputStream())
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
@@ -18,6 +21,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    buildTypes.each {
+        it.buildConfigField 'String', 'YouTube_API_KEY', extProgram.getProperty("apiKEY")
     }
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'

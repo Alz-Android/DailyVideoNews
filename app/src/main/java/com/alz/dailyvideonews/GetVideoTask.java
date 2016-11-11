@@ -21,12 +21,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.alz.dailyvideonews.R;
-import static android.R.attr.bitmap;
-
+import static com.alz.dailyvideonews.BuildConfig.YouTube_API_KEY;
 
 public class GetVideoTask extends AsyncTask<String, Void, Void> {
-    public static final String API_KEY = "AIzaSyDyabUM--6OixvzaaxUk4iwnNVSSuCdjU0";
+    public static final String API_KEY = YouTube_API_KEY; //"AIzaSyDyabUM--6OixvzaaxUk4iwnNVSSuCdjU0";
     private final String LOG_TAG = GetVideoTask.class.getSimpleName();
     private com.google.api.services.youtube.YouTube mYoutube;
     private com.google.api.services.youtube.YouTube.Search.List mQuery;

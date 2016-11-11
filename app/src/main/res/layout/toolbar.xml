@@ -20,6 +20,6 @@
             android:textStyle="bold"
             android:textColor="@color/colorWhite"/>
 
-    </android.support.v7.widget.Toolbar>
+</android.support.v7.widget.Toolbar>
 
 
