@@ -38,10 +38,11 @@ public class WidgetListViewService extends RemoteViewsService {
 
                 RemoteViews rv = new RemoteViews(getPackageName(), R.layout.widget_list_item);
                 rv.setTextViewText(R.id.item, records.get(position).getTitle());
+
                 Intent fillInIntent = new Intent();
                 fillInIntent.setData(VideosTable.CONTENT_URI);
                 fillInIntent.putExtra("VIDEO_ID",records.get(position).getId());
-                rv.setOnClickFillInIntent(R.id.widget_list_item, fillInIntent);
+                rv.setOnClickFillInIntent(R.id.item_container, fillInIntent);
                 return rv;
             }
 
