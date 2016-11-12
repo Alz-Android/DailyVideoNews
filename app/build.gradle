@@ -5,7 +5,18 @@ apply plugin: 'com.google.gms.google-services'
 ext.extProgram = new Properties()
 extProgram.load(file("app.properties").newDataInputStream())
 
+ext.keystore = new Properties()
+keystore.load(file("keystore.properties").newDataInputStream())
+
 android {
+    signingConfigs {
+        Youtubeconfig {
+            keyAlias keystore.getProperty("RELEASE_KEY_ALIAS")
+            keyPassword keystore.getProperty("RELEASE_KEY_PASSWORD")
+            storeFile file('../androidKeyStore/android.jks')
+            storePassword keystore.getProperty("RELEASE_STORE_PASSWORD")
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
@@ -22,19 +33,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     buildTypes.each {
         it.buildConfigField 'String', 'YouTube_API_KEY', extProgram.getProperty("apiKEY")
+    }
+    defaultConfig {
+        multiDexEnabled true
     }
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
 }
 
-
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

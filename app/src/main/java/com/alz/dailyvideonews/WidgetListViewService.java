@@ -42,7 +42,7 @@ public class WidgetListViewService extends RemoteViewsService {
                 Intent fillInIntent = new Intent();
                 fillInIntent.setData(VideosTable.CONTENT_URI);
                 fillInIntent.putExtra("VIDEO_ID",records.get(position).getId());
-                rv.setOnClickFillInIntent(R.id.item_container, fillInIntent);
+                rv.setOnClickFillInIntent(R.id.item, fillInIntent);
                 return rv;
             }
 
