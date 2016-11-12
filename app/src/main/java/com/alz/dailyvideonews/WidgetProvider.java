@@ -47,8 +47,10 @@ public class WidgetProvider extends AppWidgetProvider {
             Intent clickIntentTemplate = new Intent(context, WebViewActivity.class);
             clickIntentTemplate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-            PendingIntent clickPendingIntentTemplate = PendingIntent.getBroadcast(context, 0, clickIntentTemplate,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+            PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
+                    .addNextIntentWithParentStack(clickIntentTemplate)
+                    .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
             rv.setPendingIntentTemplate(R.id.list_view,clickPendingIntentTemplate);
 
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
