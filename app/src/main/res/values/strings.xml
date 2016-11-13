@@ -2,6 +2,7 @@
     <string name="app_name">Daily Video News</string>
     <string name="appwidget_text">News Headlines</string>
     <string name="add_widget">Add widget</string>
+    <string name="news_title">News Title</string>
 
     <string name="btn_Business">Business</string>
     <string name="btn_Recency">By Recency</string>

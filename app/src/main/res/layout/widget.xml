@@ -8,7 +8,6 @@
     android:background="#f8f8f8">
 
     <TextView
-        android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="91dp"
         android:id="@+id/appwidget_text" />

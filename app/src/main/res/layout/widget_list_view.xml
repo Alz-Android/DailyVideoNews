@@ -7,7 +7,7 @@
         android:text="@string/widget_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/widget_title_padding"
         android:textSize="@dimen/widget_headline_text"
         android:background="@color/colorPrimary"
         android:textStyle="bold"
@@ -29,7 +29,7 @@
         android:layout_height="match_parent"
         style="@android:style/TextAppearance.Medium"
         android:layout_gravity="center"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/widget_margin"
         android:text="@string/no_data"
         />
 
