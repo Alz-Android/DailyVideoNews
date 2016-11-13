@@ -6,8 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
+        <item name="android:windowExitTransition">@transition/main_exit</item>
+    </style>
 
     <style name="Line">
         <item name="android:layout_width">fill_parent</item>

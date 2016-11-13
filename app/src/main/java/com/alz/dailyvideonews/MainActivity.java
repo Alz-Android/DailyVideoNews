@@ -1,9 +1,10 @@
 package com.alz.dailyvideonews;
 
-import android.content.Context;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.database.Cursor;
 
+import android.os.Build;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -97,10 +98,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemClick(AdapterView<?> av, View v, int position,
                                     long id) {
-                Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
-                Cursor cursor = (Cursor) mVideoAdapter.getItem(position);
-                intent.putExtra("VIDEO_ID", cursor.getString(cursor.getColumnIndex("videoId")));
-                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, findViewById(R.id.video_results), "video_results").toBundle();
+                    Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
+                    Cursor cursor = (Cursor) mVideoAdapter.getItem(position);
+                    intent.putExtra("VIDEO_ID", cursor.getString(cursor.getColumnIndex("videoId")));
+                    startActivity(intent, bundle);
+                }
+                else {
+                    Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
+                    Cursor cursor = (Cursor) mVideoAdapter.getItem(position);
+                    intent.putExtra("VIDEO_ID", cursor.getString(cursor.getColumnIndex("videoId")));
+                    startActivity(intent);
+
+                }
             }
         });
     }
