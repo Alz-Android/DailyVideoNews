@@ -98,19 +98,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemClick(AdapterView<?> av, View v, int position,
                                     long id) {
+                Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
+                Cursor cursor = (Cursor) mVideoAdapter.getItem(position);
+                intent.putExtra("VIDEO_ID", cursor.getString(cursor.getColumnIndex("videoId")));
+
                 if (Build.VERSION.SDK_INT >= 21) {
                     Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, findViewById(R.id.video_results), "video_results").toBundle();
-                    Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
-                    Cursor cursor = (Cursor) mVideoAdapter.getItem(position);
-                    intent.putExtra("VIDEO_ID", cursor.getString(cursor.getColumnIndex("videoId")));
                     startActivity(intent, bundle);
                 }
                 else {
-                    Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
-                    Cursor cursor = (Cursor) mVideoAdapter.getItem(position);
-                    intent.putExtra("VIDEO_ID", cursor.getString(cursor.getColumnIndex("videoId")));
-                    startActivity(intent);
 
+                    startActivity(intent);
                 }
             }
         });
