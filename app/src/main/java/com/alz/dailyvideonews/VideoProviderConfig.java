@@ -10,7 +10,7 @@ import ckm.simple.sql_provider.annotation.SimpleSQLConfig;
 
 @SimpleSQLConfig(
         name = "VideoProvider",
-        authority = "just.some.test_provider.authority",
+        authority = "just.some.video_provider.authority",
         database = "YTVideos.db",
         version = 3)
 

@@ -33,7 +33,7 @@
 
         <provider
             android:name=".VideoProvider"
-            android:authorities="just.some.test_provider.authority">
+            android:authorities="just.some.video_provider.authority">
 
         </provider>
 
